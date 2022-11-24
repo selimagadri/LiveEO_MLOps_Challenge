@@ -1,0 +1,10 @@
+FROM jupyter/scipy-notebook
+
+COPY scripts ./scripts
+COPY test_images ./test_images
+COPY trained_models/best_model.ckpt ./trained_models/best_model.ckpt 
+COPY requirements.txt ./requirements.txt
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+RUN python ./scripts/main.py --ckpt_path './trained_models/best_model.ckpt' --num_workers 0
