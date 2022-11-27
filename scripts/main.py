@@ -4,12 +4,15 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.utilities.seed import seed_everything
 from pytorch_lightning.callbacks import ModelCheckpoint
 from dataset import SpaceNet7DataModule
+from downloads import download_images, download_checkpoints
 
 
 
 if __name__ == "__main__":
     args = get_main_args()
     callbacks = []
+    download_images()
+    download_checkpoints()
     model = Unet(args)
     model_ckpt = ModelCheckpoint(dirpath="./", filename="last",
                                 monitor="dice_mean", mode="max", save_last=True)

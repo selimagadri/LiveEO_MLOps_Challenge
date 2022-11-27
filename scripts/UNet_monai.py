@@ -6,6 +6,7 @@ from loss import *
 from metrics import *   
 import pytorch_lightning as pl
 from monai.networks.nets import DynUNet
+import logging
 
 
 class Unet(pl.LightningModule):
@@ -34,12 +35,15 @@ class Unet(pl.LightningModule):
 
     def predict_step(self, batch, batch_idx):
         img, lbl = batch
-        preds = self.model(img)
-        preds = (nn.Sigmoid()(preds) > 0.5).int()
+        preds1 = self.model(img)
+        preds = (nn.Sigmoid()(preds1) > 0.5).int()
         lbl_np = lbl.detach().cpu().numpy()
         preds_np = preds.detach().cpu().numpy()
         np.save(self.args.save_path + 'predictions.npy', preds_np)
         np.save(self.args.save_path + 'labels.npy', lbl_np)
+        dice = self.dice.compute_stats_spacenet7(preds1, lbl)
+        loss = self.loss._loss(preds1,lbl)
+        logging.info(' \n---------------------------------------\n\nLoss : {} \nDice : {} \n\n---------------------------------------\n\n'.format(loss.item(),dice.item()))
 
     def training_epoch_end(self, outputs):
         torch.cuda.empty_cache()

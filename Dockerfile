@@ -1,8 +1,6 @@
 FROM jupyter/scipy-notebook
 
 COPY scripts ./scripts
-COPY test_images ./test_images
-COPY trained_models/best_model.ckpt ./trained_models/best_model.ckpt 
 COPY requirements.txt ./requirements.txt
 
 RUN pip install --upgrade pip

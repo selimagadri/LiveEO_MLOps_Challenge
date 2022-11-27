@@ -6,10 +6,9 @@ The main tasks performed in this code are:
  - Train and evaluate the model's results
 
 In this project you will find:
-
-    -requirements.txt it contains all the necessary libraries;
-    -scripts contains a modular code;
-    -trained_models contains the best model based on the dice score and the last trained model;
+ -requirements.txt it contains all the necessary libraries;
+ -scripts contains a modular code;
+ -trained_models contains the best model based on the dice score and the last trained model;
 
 ------------------------
 Train segmentation model
