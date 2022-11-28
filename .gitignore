@@ -134,3 +134,4 @@ predictions.npy
 labels.npy
 test_images.zip
 trained_models.zip
+mlruns/

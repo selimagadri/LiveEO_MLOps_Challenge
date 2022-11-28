@@ -5,10 +5,12 @@ from pytorch_lightning.utilities.seed import seed_everything
 from pytorch_lightning.callbacks import ModelCheckpoint
 from dataset import SpaceNet7DataModule
 from downloads import download_images, download_checkpoints
-
+import mlflow.pytorch
+import os
 
 
 if __name__ == "__main__":
+    os.environ['MLFLOW_TRACKING_URI'] = 'http://localhost:8000/'
     args = get_main_args()
     callbacks = []
     download_images()
@@ -25,6 +27,9 @@ if __name__ == "__main__":
     print("---------------------------------------\n")
     print("The execution mode is :", args.exec_mode)
     print("\n---------------------------------------")
+
+    mlflow.pytorch.autolog()
+
     if args.exec_mode == 'train':
         trainer.fit(model, dm)
     else:

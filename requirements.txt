@@ -12,3 +12,5 @@ scikit-learn
 pytorch_lightning
 imagecodecs
 gdown
+mlflow
+psycopg2-binary
